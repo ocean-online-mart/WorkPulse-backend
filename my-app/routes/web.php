@@ -17,4 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/calender', function(){
+    return view('/calender');
+})->middleware(['auth', 'verified'])->name('Calender');
+
+
+Route::get('/profile-setting', function(){
+    return view('/profile-setting');
+})->middleware(['auth', 'verified'])->name('Profile');
+
 require __DIR__.'/auth.php';

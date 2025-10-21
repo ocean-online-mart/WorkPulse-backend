@@ -51,20 +51,20 @@
                                             <span class="input-group-text border-start-0">
                                                 <i class="ti ti-mail"></i>
                                             </span>
-                                            @error('email')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="pass-group">
                                             <input type="password" name="password" id="password" class="pass-input form-control" required>
                                             <span class="ti toggle-password ti-eye-off"></span>
-                                            @error('password')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
                                         </div>
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-3">
                                         <div class="d-flex align-items-center">
@@ -92,18 +92,8 @@
                                     <div class="mt-2">
                                         <div class="d-flex align-items-center justify-content-center flex-wrap">
                                             <div class="text-center me-2 flex-fill">
-                                                <a href="javascript:void(0);" class="br-10 p-2 btn btn-info d-flex align-items-center justify-content-center">
-                                                    <img class="img-fluid m-1" src="{{ asset('theme/img/icons/facebook-logo.svg') }}" alt="Facebook">
-                                                </a>
-                                            </div>
-                                            <div class="text-center me-2 flex-fill">
                                                 <a href="javascript:void(0);" class="br-10 p-2 btn btn-outline-light border d-flex align-items-center justify-content-center">
                                                     <img class="img-fluid m-1" src="{{ asset('theme/img/icons/google-logo.svg') }}" alt="Google">
-                                                </a>
-                                            </div>
-                                            <div class="text-center flex-fill">
-                                                <a href="javascript:void(0);" class="bg-dark br-10 p-2 btn btn-dark d-flex align-items-center justify-content-center">
-                                                    <img class="img-fluid m-1" src="{{ asset('theme/img/icons/apple-logo.svg') }}" alt="Apple">
                                                 </a>
                                             </div>
                                         </div>

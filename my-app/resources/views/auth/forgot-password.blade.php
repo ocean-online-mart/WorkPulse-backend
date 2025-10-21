@@ -1,25 +1,78 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('layouts.auth')
+
+@section('title', 'Forgot Password')
+
+@section('content')
+<div class="container-fluid">
+    <div class="w-100 overflow-hidden position-relative flex-wrap d-block vh-100">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="login-background position-relative d-lg-flex align-items-center justify-content-center d-none flex-wrap vh-100">
+                    <div class="bg-overlay-img">
+                        <img src="{{ asset('theme/img/bg/bg-01.png') }}" class="bg-1" alt="Img">
+                        <img src="{{ asset('theme/img/bg/bg-02.png') }}" class="bg-2" alt="Img">
+                        <img src="{{ asset('theme/img/bg/bg-03.png') }}" class="bg-3" alt="Img">
+                    </div>
+                    <div class="authentication-card w-100">
+                        <div class="authen-overlay-item border w-100">
+                            <h1 class="text-white display-1">Empowering people <br> through seamless HR <br> management.</h1>
+                            <div class="my-4 mx-auto authen-overlay-img">
+                                <img src="{{ asset('theme/img/bg/authentication-bg-01.png') }}" alt="Img">
+                            </div>
+                            <div>
+                                <p class="text-white fs-20 fw-semibold text-center">Efficiently manage your workforce, streamline <br> operations effortlessly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap">
+                    <div class="col-md-7 mx-auto vh-100">
+                        <form method="POST" action="{{ route('password.email') }}" class="vh-100">
+                            @csrf
+                            <div class="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
+                                <div class="mx-auto mb-5 text-center">
+                                    <img src="{{ asset('theme/img/logo.svg') }}" class="img-fluid" alt="Logo">
+                                </div>
+                                <div>
+                                    <div class="text-center mb-3">
+                                        <h2 class="mb-2">Forgot Password?</h2>
+                                        <p class="mb-0">If you forgot your password, we’ll email you instructions to reset your password.</p>
+                                    </div>
+                                    @if (session('status'))
+                                        <div class="alert alert-success">{{ session('status') }}</div>
+                                    @endif
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <div class="input-group">
+                                            <input type="email" name="email" id="email" class="form-control border-end-0" value="{{ old('email') }}" required autofocus>
+                                            <span class="input-group-text border-start-0">
+                                                <i class="ti ti-mail"></i>
+                                            </span>
+                                        </div>
+                                        @error('email')
+                                            <span class="text-danger mt-2">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                    </div>
+                                    <div class="text-center">
+                                        <h6 class="fw-normal text-dark mb-0">Return to
+                                            <a href="{{ route('login') }}" class="hover-a">Sign In</a>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="mt-5 pb-4 text-center">
+                                    <p class="mb-0 text-gray-9">Copyright &copy; {{ date('Y') }} - WorkPulse</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</div>
+@endsection
