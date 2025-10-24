@@ -21,7 +21,7 @@
                         <li>
                             <ul>
                                 <li class="active">
-                                    <a href="/">
+                                    <a href="/dashboard">
                                         <i class="ti ti-smart-home"></i><span>Dashboard</span>
                                     </a>
                                 </li>

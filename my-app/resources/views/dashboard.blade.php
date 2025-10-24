@@ -58,7 +58,11 @@
                                             <i class="ti ti-fingerprint text-primary me-1"></i>
                                             Punch In at 10.00 AM
                                         </h6>
-                                        <a href="#" class="btn btn-dark w-100">Punch Out</a>
+                                        <form method="POST" action="{{ route('attendance.punch_out') }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-dark w-100">Punch Out</button>
+                                        </form>
+                                        <!-- <a href="#" class="btn btn-dark w-100">Punch Out</a> -->
                                     </div>
                                 </div>
                             </div>

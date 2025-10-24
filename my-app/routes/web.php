@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -19,11 +20,14 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/calender', function(){
     return view('/calender');
-})->middleware(['auth', 'verified'])->name('Calender');
+})->name('Calender');
 
 
 Route::get('/profile-setting', function(){
     return view('/profile-setting');
-})->middleware(['auth', 'verified'])->name('Profile');
+})->name('Profile');
 
+Route::middleware('auth')->group(function () {
+    Route::post('/attendance/punch-out', [AttendanceController::class, 'punchOut'])->name('attendance.punch_out');
+});
 require __DIR__.'/auth.php';
