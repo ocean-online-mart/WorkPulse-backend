@@ -26,31 +26,32 @@ class Attendance extends Model
     }
 
     public function calculateMetrics()
-    {
-        $officeStart = Carbon::createFromTime(9, 0, 0);
-        $officeEnd = Carbon::createFromTime(18, 0, 0); // 6pm
+{
+    $officeStart = Carbon::createFromTime(9, 0, 0);
+    $officeEnd = Carbon::createFromTime(18, 0, 0); // 6pm
 
-        // Late
-        $punchInTime = Carbon::parse($this->punch_in)->time();
-        $this->late_minutes = $punchInTime->gt($officeStart) ? $punchInTime->diffInMinutes($officeStart) : 0;
+    // Parse punch-in/out as Carbon instances
+    $punchIn = Carbon::parse($this->punch_in);
+    $punchOut = $this->punch_out ? Carbon::parse($this->punch_out) : null;
 
-        // Overtime
-        $this->overtime_minutes = 0;
-        if ($this->punch_out) {
-            $punchOutTime = Carbon::parse($this->punch_out)->time();
-            $this->overtime_minutes = $punchOutTime->gt($officeEnd) ? $punchOutTime->diffInMinutes($officeEnd) : 0;
-        }
+    // Late minutes
+    $this->late_minutes = $punchIn->gt($officeStart)
+        ? $officeStart->diffInMinutes($punchIn)
+        : 0;
 
-        // Production hours
-        $totalWorked = $this->punch_out
-            ? Carbon::parse($this->punch_out)->diffInMinutes(Carbon::parse($this->punch_in))
-            : 0;
-        $totalBreaks = $this->breaks()->sum('duration_minutes');
-        $this->production_minutes = max(0, $totalWorked - $totalBreaks);
+    // Overtime
+    $this->overtime_minutes = $punchOut && $punchOut->gt($officeEnd)
+        ? $officeEnd->diffInMinutes($punchOut)
+        : 0;
 
-        // Status
-        $this->status = $this->punch_in && $this->punch_out ? 'present' : 'absent';
+    // Production hours
+    $totalWorked = $punchOut ? $punchOut->diffInMinutes($punchIn) : 0;
+    $totalBreaks = $this->breaks()->sum('duration_minutes');
+    $this->production_minutes = max(0, $totalWorked - $totalBreaks);
 
-        $this->save();
-    }
+    // Status
+    $this->status = $this->punch_in && $this->punch_out ? 'present' : 'absent';
+
+    $this->save();
+}
 }

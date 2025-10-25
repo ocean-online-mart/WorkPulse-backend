@@ -18,7 +18,7 @@ class BreakRecord extends Model
     }
 
     // Method to end break and calculate duration
-    public function endBreak()
+    public function endBreak() 
     {
         $this->break_out = now();
         $this->duration_minutes = Carbon::parse($this->break_out)->diffInMinutes(Carbon::parse($this->break_in));

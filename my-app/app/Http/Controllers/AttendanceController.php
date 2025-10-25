@@ -20,7 +20,7 @@ class AttendanceController extends Controller
             }
             $attendance->punch_out = now();
             $attendance->calculateMetrics();
-            return redirect()->back()->with('success', 'Punched out!');
+              return redirect('/login');
         }
 
         return redirect()->back()->with('error', 'No active punch-in found.');
