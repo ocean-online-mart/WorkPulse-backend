@@ -30,9 +30,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-         $user = Auth::user();
-        
-         $today = Carbon::today();
+        $user = Auth::user();
+        $today = Carbon::today();
+        $punchIn = Carbon::now();
+        $userid = $user->id;
+       
+        $lateHours = $this->calculateLateHours($punchIn);
+       
         $existing = Attendance::where('user_id', $user->id)
             ->whereNull('punch_out')
             ->whereDate('punch_in', $today)
@@ -41,26 +45,31 @@ class AuthenticatedSessionController extends Controller
         if (!$existing) {
             Attendance::create([
                 'user_id' => $user->id,
-                'punch_in' => now(),
+                'punch_in' => $punchIn,
                 'status' => 'present',
-                'late_minutes' => $this->calculateLateMinutes(now()),
-                'work_mode' => 'office', 
+                'late_hours' => $lateHours,
+                'work_mode' => 'office',
+                'date' => $today
             ]);
         }
 
-        
-        return redirect()->intended(route('dashboard', absolute: false));
+      return redirect()->intended(route('dashboard', absolute: false))
+        ->with('punch_in', $punchIn->format('h:i A'));
+    
     }
 
 
-    protected function calculateLateMinutes($punchInTime)
+    protected function calculateLateHours(Carbon $punchIn): float
     {
-        $officeStart = Carbon::createFromTime(9, 0, 0);
-        $punchIn = Carbon::parse($punchInTime);
+        $expectedPunchIn = Carbon::today()->setTime(9, 0); // 9:00 AM
+        $gracePeriodEnd = Carbon::today()->setTime(9, 15); // 9:15 AM
 
-        return $punchIn->gt($officeStart)
-            ? $officeStart->diffInMinutes($punchIn)
-            : 0;
+        
+        if ($punchIn->greaterThan($gracePeriodEnd)) {
+            return $punchIn->diffInHours($expectedPunchIn, true);
+        }
+
+        return 0.0;
     }
     /**
      * Destroy an authenticated session.

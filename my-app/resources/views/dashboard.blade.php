@@ -37,8 +37,10 @@
                             <div class="card flex-fill">
                                 <div class="card-body">
                                     <div class="mb-3 text-center">
-                                        <h6 class="fw-medium text-gray-5 mb-2">Good Morning, {{ Auth::user()->name }}</h6>
-                                        <h4>08:35 AM, 11 Mar 2025</h4>
+                                        <h6 class="fw-medium text-gray-5 mb-2">
+                                            {{ Carbon\Carbon::now()->hour < 12 ? 'Good Morning' : (Carbon\Carbon::now()->hour < 17 ? 'Good Afternoon' : 'Good Evening') }}, {{ Auth::user()->name }}
+                                        </h6>
+                                        <h4>{{ Carbon\Carbon::now()->format('h:i A, d M Y') }}</h4>
                                     </div>
                                     <div class="attendance-circle-progress mx-auto mb-3" data-value='65'>
                                         <span class="progress-left">
@@ -56,13 +58,13 @@
                                         <div class="badge badge-md badge-primary mb-3">Production : 3.45 hrs</div>
                                         <h6 class="fw-medium d-flex align-items-center justify-content-center mb-3">
                                             <i class="ti ti-fingerprint text-primary me-1"></i>
-                                            Punch In at 10.00 AM
+                                            Punch In at {{ session('punch_in', 'N/A') }}
                                         </h6>
                                         <form method="POST" action="{{ route('attendance.punch_out') }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-dark w-100">Punch Out</button>
+                                           <a href="{{ route('attendance.punch_out') }}" onclick="event.preventDefault(); this.closest('form').submit();"
+                                            class="btn btn-dark w-100">Punch Out</a>
                                         </form>
-                                        <!-- <a href="#" class="btn btn-dark w-100">Punch Out</a> -->
                                     </div>
                                 </div>
                             </div>

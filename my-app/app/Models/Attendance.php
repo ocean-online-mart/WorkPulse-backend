@@ -11,8 +11,8 @@ class Attendance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'punch_in', 'punch_out', 'status', 'late_minutes', 'overtime_minutes',
-        'production_minutes', 'work_mode'
+        'user_id', 'punch_in', 'punch_out', 'status', 'late_hours', 'overtime_minutes',
+        'production_minutes', 'work_mode','date'
     ];
 
     public function user()

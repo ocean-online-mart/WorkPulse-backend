@@ -30,4 +30,6 @@ Route::get('/profile-setting', function(){
 Route::middleware('auth')->group(function () {
     Route::post('/attendance/punch-out', [AttendanceController::class, 'punchOut'])->name('attendance.punch_out');
 });
+
+  Route::get('/getAttendanceSummary', [AttendanceController::class, 'getAttendanceSummary'])->name('getAttendanceSummary');
 require __DIR__.'/auth.php';
