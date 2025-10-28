@@ -53,6 +53,7 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
+        
       return redirect()->intended(route('dashboard', absolute: false))
         ->with('punch_in', $punchIn->format('h:i A'));
     
