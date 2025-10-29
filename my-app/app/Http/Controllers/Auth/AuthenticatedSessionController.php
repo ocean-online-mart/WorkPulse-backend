@@ -21,6 +21,21 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function userdashboard(){
+
+        $user = Auth::user();
+        $userid = $user->id;
+        $today = Carbon::today();
+
+        $punchInTime = Attendance::where('user_id', $userid)
+                ->whereDate('punch_in', $today)
+                ->value('punch_in');
+
+       $punch_in = $punchInTime ? Carbon::parse($punchInTime)->format('h:i A') : null;
+
+        return view('dashboard', compact('punch_in'));
+
+    }
     /**
      * Handle an incoming authentication request.
      */
@@ -52,10 +67,7 @@ class AuthenticatedSessionController extends Controller
                 'date' => $today
             ]);
         }
-
-        
-      return redirect()->intended(route('dashboard', absolute: false))
-        ->with('punch_in', $punchIn->format('h:i A'));
+        return redirect()->intended(route('dashboard', absolute: false));
     
     }
 

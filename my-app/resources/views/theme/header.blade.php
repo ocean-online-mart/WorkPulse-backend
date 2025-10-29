@@ -92,7 +92,12 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
-                <a class="dropdown-item" href="#">Status</a>
+                <div class="dropdown-item d-flex align-items-center justify-content-between">
+            <span>Status</span>
+            <div class="form-check form-switch m-0">
+                <input class="form-check-input" type="checkbox" id="statusToggle" onchange="toggleStatus(this)">
+            </div>
+        </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a class="dropdown-item" href="{{ route('logout') }}"

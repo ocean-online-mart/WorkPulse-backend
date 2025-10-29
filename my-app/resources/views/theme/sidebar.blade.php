@@ -20,17 +20,17 @@
                         <li class="menu-title"><span>MAIN MENU</span></li>
                         <li>
                             <ul>
-                                <li class="active">
+                                <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
                                     <a href="/dashboard">
                                         <i class="ti ti-smart-home"></i><span>Dashboard</span>
                                     </a>
                                 </li>
-                                <li class="">
+                                <li class="{{ request()->is('calender') ? 'active' : '' }}">
                                     <a href="/calender">
                                         <i class="ti ti-layout-grid-add"></i><span>Calendar</span>
                                     </a>
                                 </li>
-                                <li class="">
+                                <li class="{{ request()->is('profile-setting') ? 'active' : '' }}">
                                     <a href="/profile-setting">
                                         <i class="ti ti-file-time"></i><span>Edit Profile</span>
                                     </a>

@@ -56,10 +56,17 @@
                                     </div>
                                     <div class="text-center">
                                         <div class="badge badge-md badge-primary mb-3">Production : 3.45 hrs</div>
+                                        @if($punch_in)
                                         <h6 class="fw-medium d-flex align-items-center justify-content-center mb-3">
                                             <i class="ti ti-fingerprint text-primary me-1"></i>
-                                            Punch In at {{ session('punch_in', 'N/A') }}
+                                            Punch In at {{ $punch_in }}
                                         </h6>
+                                        @else
+                                             <h6 class="fw-medium d-flex align-items-center justify-content-center mb-3">
+                                            <i class="ti ti-fingerprint text-primary me-1"></i>
+                                            Punch In at N/A
+                                        </h6>
+                                        @endif
                                         <form method="POST" action="{{ route('attendance.punch_out') }}">
                                             @csrf
                                            <a href="{{ route('attendance.punch_out') }}" onclick="event.preventDefault(); this.closest('form').submit();"

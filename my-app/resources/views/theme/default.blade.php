@@ -39,6 +39,17 @@
     <!-- Main CSS -->                                                                                                                                              
     <link rel="stylesheet" href="{{asset('theme/css/style.css')}}">
 </head>
+<style>
+    .mobile-user-menu .dropdown-item {
+    padding: 8px 15px;
+}
+
+.mobile-user-menu .form-switch .form-check-input {
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+}
+</style>
 <body>
 
      <div class="main-wrapper">

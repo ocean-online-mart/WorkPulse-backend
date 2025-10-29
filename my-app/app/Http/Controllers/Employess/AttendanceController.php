@@ -1,7 +1,7 @@
 <?php
+namespace App\Http\Controllers\Employess;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\BreakRecord;
@@ -9,7 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class AttendanceController extends Controller
-{
+{    
+    public function calender(){
+        return view('calender');
+    }
+
+    public function profilePage(){
+        return view('profile-setting');
+    }
+
    public function punchOut(Request $request)
     {
        $userId = Auth::id();
@@ -36,7 +44,7 @@ class AttendanceController extends Controller
             // Update attendance record
             $attendance->update([
                 'punch_out' => $punchOut,
-                'production_minutes' => $earlyLeaveHours, // Consider renaming to 'early_leave_hours' if it's a typo
+                'production_minutes' => $earlyLeaveHours, 
                 'overtime_hours' => $overtimeHours
             ]);
 
@@ -83,4 +91,6 @@ class AttendanceController extends Controller
             'is_early_leave' => $attendance->production_minutes > 0 ? 'Yes' : 'No'
         ]);
     }
+
+   
 }
