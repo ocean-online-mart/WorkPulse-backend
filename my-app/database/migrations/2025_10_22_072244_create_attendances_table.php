@@ -16,11 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamp('punch_in');
             $table->timestamp('punch_out')->nullable();
-            $table->integer('late_minutes')->default(0);
+            $table->integer('late_hours')->default(0);
             $table->integer('overtime_minutes')->default(0);
             $table->integer('production_minutes')->default(0);
             $table->enum('status', ['present', 'absent'])->default('absent');
             $table->enum('work_mode', ['office', 'remote', 'other'])->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

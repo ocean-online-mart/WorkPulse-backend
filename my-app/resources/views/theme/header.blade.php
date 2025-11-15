@@ -65,10 +65,22 @@
                                         href="{{ route('profile.edit') }}">
                                         <i class="ti ti-user-circle me-1"></i>My Profile
                                     </a>
-                                    <a class="dropdown-item d-inline-flex align-items-center p-0 py-2"
-                                        href="#">
-                                        <i class="ti ti-status-change me-1"></i>Status
-                                    </a>
+                                   <div class="dropdown-item p-0 py-2">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <i class="ti ti-status-change me-1"></i>
+                                                <span>status</span>
+                                            </div>0
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input break-toggle" type="checkbox" id="breakSwitch"
+                                                    checked>
+                                                <label class="form-check-label" for="breakSwitch"></label>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted d-block mt-1" id="break-status">
+                                                Not on break
+                                        </small>
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <form method="POST" action="{{ route('logout') }}">
@@ -86,18 +98,18 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div class="dropdown mobile-user-menu">
-            <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
-                <div class="dropdown-item d-flex align-items-center justify-content-between">
-            <span>Status</span>
-            <div class="form-check form-switch m-0">
-                <input class="form-check-input" type="checkbox" id="statusToggle" onchange="toggleStatus(this)">
-            </div>
-        </div>
+                <div class="dropdown mobile-user-menu">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
+                        <div class="dropdown-item d-flex align-items-center justify-content-between">
+                    <span>Status</span>
+                    <div class="form-check form-switch m-0">
+                        <input class="form-check-input" type="checkbox" id="statusToggle">
+                    </div>
+                </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a class="dropdown-item" href="{{ route('logout') }}"
